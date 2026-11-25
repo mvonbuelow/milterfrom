@@ -8,24 +8,22 @@ The postconf option "reject_authenticated_sender_login_mismatch" doesn't solve t
 
 ## Dependencies (as Debian package names)
 
-* git cmake make gcc
-* libmilter1.0.1 libmilter-dev
+* git cmake make gcc pkg-config
+* libmilter1.0.1 libmilter-dev systemd-dev
 
 ## Build and install
 
 ```bash
-mkdir build
-cd $_
-cmake -DWITH_SYSTEMD=ON ..
-make
-make install # this installs the executable and the Systemd unit
+cmake -B build
+cmake --build build
+cmake --install build # this installs the executable and the Systemd unit
 systemctl daemon-reload
 ```
 
 If you wish to install to a custom directory:
 
 ```bash
-cmake -DWITH_SYSTEMD=ON -DCMAKE_INSTALL_PREFIX=/tmp/your/path ..
+cmake -DCMAKE_INSTALL_PREFIX=/tmp/your/path ..
 ```
 
 ## Configure (on a Systemd and Postfix environment)
