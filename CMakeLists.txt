@@ -18,5 +18,6 @@ target_link_libraries(milterfrom PRIVATE Milter::milter Threads::Threads)
 install(TARGETS milterfrom DESTINATION "${CMAKE_INSTALL_BINDIR}")
 if(SYSTEMD_SYSTEM_UNIT_DIR)
 	configure_file(systemd/milterfrom.service.in ${CMAKE_CURRENT_BINARY_DIR}/systemd/milterfrom.service @ONLY)
-	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/systemd/milterfrom.service DESTINATION ${SYSTEMD_SYSTEM_UNIT_DIR})
+	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/systemd/milterfrom.service systemd/milterfrom.socket
+		DESTINATION ${SYSTEMD_SYSTEM_UNIT_DIR})
 endif()

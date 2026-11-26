@@ -1,0 +1,8 @@
+[Socket]
+ListenStream=/var/spool/postfix/milterfrom/milterfrom
+
+# If your libmilter supports socket passing, you can enable this socket
+# unit by uncommenting the Install section below
+#
+# [Install]
+# WantedBy=sockets.target
