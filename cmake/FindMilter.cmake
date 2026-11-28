@@ -18,7 +18,6 @@ else()
 		/opt/local/include
 		/sw/local/include
 		/sw/include
-		NO_DEFAULT_PATH
 	)
 	find_library(MILTER_LINK_LIBRARIES
 		NAMES "milter"
