@@ -2,10 +2,42 @@
 Description=A milter that enforces equal envelope and header sender
 
 [Service]
-Type=forking
-PIDFile=/var/run/milterfrom.pid
-ExecStart=@CMAKE_INSTALL_PREFIX@/bin/milterfrom -d -p /var/run/milterfrom.pid -u milterfrom -g milterfrom -m 002 -s /var/spool/postfix/milterfrom/milterfrom
-ExecReload=/bin/kill -HUP $MAINPID
+Type=exec
+ExecStart=@CMAKE_INSTALL_FULL_BINDIR@/milterfrom -s /var/spool/postfix/milterfrom/milterfrom
+User=milterfrom
+UMask=0002
 
 [Install]
 WantedBy=multi-user.target
+
+# If your libmilter supports socket passing, you can make this service
+# use the milterfrom.socket unit by uncommenting the follwing lines and
+# removing the lines above from ExecStart= to WantedBy=. Most Linux
+# distributions ship a libmiter version that does.
+#
+# ExecStart=@CMAKE_INSTALL_FULL_BINDIR@/milterfrom -s fd:0
+# StandardInput=socket
+#
+# CapabilityBoundingSet=
+# DynamicUser=yes
+# LockPersonality=yes
+# MemoryDenyWriteExecute=yes
+# PrivateDevices=yes
+# PrivateNetwork=yes
+# PrivateUsers=yes
+# ProcSubset=pid
+# ProtectClock=yes
+# ProtectControlGroups=strict
+# ProtectHome=yes
+# ProtectHostname=yes
+# ProtectKernelLogs=yes
+# ProtectKernelModules=yes
+# ProtectKernelTunables=yes
+# ProtectProc=invisible
+# RestrictAddressFamilies=AF_UNIX
+# RestrictNamespaces=yes
+# RestrictRealtime=yes
+# SystemCallArchitectures=native
+# SystemCallFilter=@system-service
+# SystemCallFilter=~ @privileged @resources
+# UMask=0077
